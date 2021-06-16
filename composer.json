@@ -1,0 +1,30 @@
+{
+    "name": "codememory/validator",
+    "description": "validator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danil",
+            "email": "kostynd1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Codememory\\Components\\Validator\\": ""
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
+    },
+    "require": {
+        "codememory/config": "^1.1",
+        "codememory/console": "^1.0",
+        "codememory/fs": "^1.1",
+        "codememory/global-config": "^1.1",
+        "codememory/http-foundation": "^2.1",
+        "codememory/support": "^1.2"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

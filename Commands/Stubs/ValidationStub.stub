@@ -1,0 +1,27 @@
+<?php
+
+namespace {namespace};
+
+use Codememory\Components\Validator\Interfaces\ValidationBuildInterface;
+use Codememory\Components\Validator\Interfaces\ValidatorInterface;
+use Codememory\Components\Validator\Interfaces\ValidateInterface;
+
+/**
+ * Class {className}
+ *
+ * @package {namespace}
+ */
+class {className} implements ValidationBuildInterface
+{
+
+    /**
+     * @inheritDoc
+     */
+    public function build(ValidatorInterface $validator, ...$args): void
+    {
+
+        {body}
+
+    }
+
+}

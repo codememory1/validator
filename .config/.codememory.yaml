@@ -1,0 +1,3 @@
+validator:
+  configName: validator
+  checkExistRules: true
