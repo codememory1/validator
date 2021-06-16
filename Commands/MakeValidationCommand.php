@@ -73,7 +73,7 @@ class MakeValidationCommand extends Command
         $name = $input->getArgument('name');
         $fullClassName = $name . $utils->getSuffixClassName();
         $fullPath = sprintf('%s/%s.php', trim($utils->getPathWithValidations(), '/'), $fullClassName);
-        $stub = file_get_contents($filesystem->getRealPath('./Commands/Stubs/ValidationStub.stub'));
+        $stub = file_get_contents($filesystem->getRealPath('codememory/validator/Commands/Stubs/ValidationStub.stub'));
 
         if ($filesystem->exist($fullPath) && !$input->getOption('re-create')) {
             $this->io->error(sprintf('The %s validation already exists. If you want to recreate use the --re-create option', $fullClassName));
