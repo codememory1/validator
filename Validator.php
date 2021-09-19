@@ -116,7 +116,11 @@ class Validator implements ValidatorInterface
     public function addValidation(string $key, callable $callback): ValidatorInterface
     {
 
-        $this->validations[$key] = call_user_func($callback, new Validate());
+        $validate = new Validate();
+
+        call_user_func($callback, $validate);
+        
+        $this->validations[$key] = $validate;
 
         return $this;
 
