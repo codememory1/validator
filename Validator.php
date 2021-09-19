@@ -274,12 +274,12 @@ class Validator implements ValidatorInterface
      *
      * @param RulesContainerInterface $rulesContainer
      * @param string                  $ruleName
-     * @param                         ...$args
+     * @param mixed                   ...$args
      *
      * @return bool
      * @throws IncorrectRuleProcessingStateException
      */
-    private function callRuleMethod(RulesContainerInterface $rulesContainer, string $ruleName, ...$args): bool
+    private function callRuleMethod(RulesContainerInterface $rulesContainer, string $ruleName, mixed ...$args): bool
     {
 
         $ruleProcessingState = $rulesContainer->$ruleName(...$args);

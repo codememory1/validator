@@ -22,11 +22,12 @@ class Manager
      *
      * @param ValidationBuildInterface $validationBuild Validation class
      * @param array                    $validatedData   Array of data to be checked using this validator
-     * @param                          ...$args         Additionally, pass arguments to the method with the creation of validations
+     * @param mixed                    ...$args         Additionally, pass arguments to the method with the creation of
+     *                                                  validations
      *
      * @return ValidationManagerInterface
      */
-    public function create(ValidationBuildInterface $validationBuild, array $validatedData, ...$args): ValidationManagerInterface
+    public function create(ValidationBuildInterface $validationBuild, array $validatedData, mixed ...$args): ValidationManagerInterface
     {
 
         $validator = new Validator($validatedData);

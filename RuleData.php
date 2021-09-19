@@ -64,7 +64,7 @@ class RuleData implements RuleDataInterface
     public function parameters(): RuleParametersInterface
     {
 
-        return new RuleParameters(explode(self::NAME_SEPARATOR, $this->fullRuleString)[1] ?? null);
+        return new RuleParameters(explode(self::NAME_SEPARATOR, $this->fullRuleString, 2)[1] ?? null);
 
     }
 

@@ -28,13 +28,13 @@ class Validate implements ValidateInterface
     /**
      * @inheritDoc
      */
-    public function addRule(string $ruleName, ?string $alias = null): ValidateInterface
+    public function addRule(string $rule, ?string $alias = null): ValidateInterface
     {
 
         if (null !== $alias) {
-            $this->rules[$alias] = new Rule($ruleName);
+            $this->rules[$alias] = new Rule($rule);
         } else {
-            $this->rules[] = new Rule($ruleName);
+            $this->rules[] = new Rule($rule);
         }
 
         $this->lastAddedKey = array_key_last($this->rules);
