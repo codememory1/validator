@@ -55,4 +55,13 @@ interface ValidatorInterface extends ValidationManagerInterface
      */
     public function existRule(string $name): bool;
 
+    /**
+     * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
+     * Returns an array of all existing rules
+     * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
+     *
+     * @return array
+     */
+    public function getRules(): array;
+
 }

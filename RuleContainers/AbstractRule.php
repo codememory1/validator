@@ -22,7 +22,7 @@ abstract class AbstractRule implements RulesContainerInterface
     /**
      * @param array $validatedData
      */
-    public function __construct(array $validatedData)
+    public function __construct(array $validatedData = [])
     {
 
         $this->data = $validatedData;

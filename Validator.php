@@ -11,6 +11,7 @@ use Codememory\Components\Validator\Interfaces\RulesContainerInterface;
 use Codememory\Components\Validator\Interfaces\ValidatorInterface;
 use Codememory\Components\Validator\RuleContainers\IsRule;
 use Codememory\Components\Validator\RuleContainers\LengthRule;
+use Codememory\Support\Arr;
 use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
 use ReflectionException;
@@ -58,7 +59,7 @@ class Validator implements ValidatorInterface
      *
      * @param array $validatedData
      */
-    public function __construct(array $validatedData)
+    public function __construct(array $validatedData = [])
     {
 
         $this->validatedData = $validatedData;
@@ -119,7 +120,7 @@ class Validator implements ValidatorInterface
         $validate = new Validate();
 
         call_user_func($callback, $validate);
-        
+
         $this->validations[$key] = $validate;
 
         return $this;
@@ -201,6 +202,23 @@ class Validator implements ValidatorInterface
     {
 
         return null !== $this->getContainerByRuleName($name);
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRules(): array
+    {
+
+        $rules = [];
+
+        foreach ($this->ruleContainers as $ruleContainer) {
+
+            Arr::merge($rules, (new $ruleContainer())->getRules());
+        }
+
+        return $rules;
 
     }
 

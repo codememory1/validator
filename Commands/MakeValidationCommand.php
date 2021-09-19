@@ -5,6 +5,7 @@ namespace Codememory\Components\Validator\Commands;
 use Codememory\Components\Console\Command;
 use Codememory\Components\Validator\Utils;
 use Codememory\Components\Validator\Utils as ValidationUtils;
+use Codememory\Components\Validator\Validator;
 use Codememory\FileSystem\File;
 use Codememory\Support\Str;
 use RuntimeException;
@@ -78,10 +79,10 @@ class MakeValidationCommand extends Command
         if ($filesystem->exist($fullPath) && !$input->getOption('re-create')) {
             $this->io->error(sprintf('The %s validation already exists. If you want to recreate use the --re-create option', $fullClassName));
 
-            return Command::FAILURE;
+            return self::FAILURE;
         }
 
-        $this->questions();
+        $this->questions(new Validator());
         $this->getCodeSynthesis($utils, $fullClassName, $stub);
 
         file_put_contents($filesystem->getRealPath($fullPath), $stub);
@@ -91,7 +92,7 @@ class MakeValidationCommand extends Command
             sprintf('Path: %s', $fullPath)
         ]);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
 
     }
 
@@ -132,22 +133,24 @@ class MakeValidationCommand extends Command
     }
 
     /**
+     * @param Validator $validator
+     *
      * @return void
      */
-    private function questions(): void
+    private function questions(Validator $validator): void
     {
 
         $addNewValidation = $this->io->confirm('Add new value validation?', true);
 
         if ($addNewValidation) {
-            $this->io->ask('Specify the data key for which the validation is being created', null, function (mixed $value) {
+            $this->io->ask('Specify the data key for which the validation is being created', null, function (mixed $value) use ($validator) {
                 if (empty($value)) {
                     throw new RuntimeException('Key name must not be an empty string');
                 }
 
                 $this->lastKeyForValidation = $value;
 
-                $this->questionRules();
+                $this->questionRules($validator);
 
                 $this->validations[] = [
                     'dataKeyForValidation' => $value,
@@ -159,18 +162,26 @@ class MakeValidationCommand extends Command
 
             $this->io->writeln(sprintf(' Validation %s added successfully', $this->tags->yellowText($this->lastKeyForValidation)));
 
-            $this->questions();
+            $this->questions($validator);
         }
 
     }
 
     /**
+     * @param Validator $validator
+     *
      * @return void
      */
-    private function questionRules(): void
+    private function questionRules(Validator $validator): void
     {
 
-        $rule = $this->io->ask(sprintf('Specify the rules for the checked key %s', $this->tags->yellowText($this->lastKeyForValidation)), null, function (mixed $rule) {
+        $ruleQuestion = sprintf('Specify the rules for the checked key %s', $this->tags->yellowText($this->lastKeyForValidation));
+
+        $rule = $this->io->askWithAutocomplete($ruleQuestion, $validator->getRules(), null, function (mixed $rule) use ($validator) {
+            if(!in_array($rule, $validator->getRules())) {
+                throw new RuntimeException(sprintf('Rule %s does not exist', $rule));
+            }
+
             return $rule;
         });
 
@@ -202,7 +213,7 @@ class MakeValidationCommand extends Command
 
             $this->io->writeln(sprintf(' Rule %s added successfully', $this->tags->yellowText($rule)));
 
-            $this->questionRules();
+            $this->questionRules($validator);
         }
 
     }
