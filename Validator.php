@@ -214,7 +214,7 @@ class Validator implements ValidatorInterface
 
         foreach ($this->ruleContainers as $ruleContainer) {
             /** @var RulesContainerInterface $container */
-            $container = new $ruleContainer();
+            $container = new $ruleContainer($this->validatedData);
 
             $rules = $container->getRules();
 

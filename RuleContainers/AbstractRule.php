@@ -15,6 +15,21 @@ abstract class AbstractRule implements RulesContainerInterface
 {
 
     /**
+     * @var array
+     */
+    protected array $data;
+
+    /**
+     * @param array $validatedData
+     */
+    public function __construct(array $validatedData)
+    {
+
+        $this->data = $validatedData;
+
+    }
+
+    /**
      * @return array
      */
     public function getRules(): array

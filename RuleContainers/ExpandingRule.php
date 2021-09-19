@@ -15,7 +15,7 @@ class ExpandingRule extends AbstractRule
 {
 
     public const RULES = [
-        'notEmpty', 'empty', 'custom'
+        'not-empty', 'empty', 'custom'
     ];
 
     /**

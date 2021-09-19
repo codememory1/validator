@@ -17,7 +17,8 @@ class IsRule extends AbstractRule
     protected const RULES = [
         'integer', 'float', 'number', 'string',
         'credible', 'alpha', 'alpha-num', 'alpha-dash',
-        'array', 'boolean', 'email', 'regex'
+        'array', 'boolean', 'email', 'required', 'regex',
+        'rule', 'same'
     ];
 
     /**
@@ -184,7 +185,7 @@ class IsRule extends AbstractRule
     public function requiredRule(RuleDataInterface $ruleData, mixed $validatedValue): bool
     {
 
-        return empty($validatedValue);
+        return !empty($validatedValue);
 
     }
 
@@ -204,6 +205,19 @@ class IsRule extends AbstractRule
         }
 
         return false;
+
+    }
+
+    /**
+     * @param RuleDataInterface $ruleData
+     * @param mixed             $validatedValue
+     *
+     * @return bool
+     */
+    public function sameRule(RuleDataInterface $ruleData, mixed $validatedValue): bool
+    {
+
+        return $validatedValue === $this->data[$ruleData->parameters()->get()];
 
     }
 
