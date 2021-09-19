@@ -17,7 +17,7 @@ class IsRule extends AbstractRule
     protected const RULES = [
         'integer', 'float', 'number', 'string',
         'credible', 'alpha', 'alpha-num', 'alpha-dash',
-        'array', 'boolean', 'email'
+        'array', 'boolean', 'email', 'regex'
     ];
 
     /**
@@ -185,6 +185,25 @@ class IsRule extends AbstractRule
     {
 
         return empty($validatedValue);
+
+    }
+
+    /**
+     * @param RuleDataInterface $ruleData
+     * @param mixed             $validatedValue
+     *
+     * @return bool
+     */
+    public function regexRule(RuleDataInterface $ruleData, mixed $validatedValue): bool
+    {
+
+        $regex = sprintf('/%s/', $ruleData->parameters()->get());
+
+        if(preg_match($regex, $validatedValue)) {
+            return true;
+        }
+
+        return false;
 
     }
 
