@@ -17,7 +17,7 @@ class {className} implements ValidationBuildInterface
     /**
      * @inheritDoc
      */
-    public function build(ValidatorInterface $validator, ...$args): void
+    public function build(ValidatorInterface $validator, mixed ...$args): void
     {
 
         {body}

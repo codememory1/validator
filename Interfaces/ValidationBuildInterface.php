@@ -18,10 +18,10 @@ interface ValidationBuildInterface
      * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
      *
      * @param ValidatorInterface $validator
-     * @param                    ...$args
+     * @param mixed              ...$args
      *
      * @return void
      */
-    public function build(ValidatorInterface $validator, ...$args): void;
+    public function build(ValidatorInterface $validator, mixed ...$args): void;
 
 }
