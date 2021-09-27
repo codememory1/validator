@@ -40,9 +40,11 @@ interface ValidatorInterface extends ValidationManagerInterface
      * Make validation workout
      * <=<=<=<=<=<=<=<=<=<=<=<=<=<=
      *
+     * @param string|null $namespaceValidation
+     *
      * @return ValidatorInterface
      */
-    public function make(): ValidatorInterface;
+    public function make(?string $namespaceValidation = null): ValidatorInterface;
 
     /**
      * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>

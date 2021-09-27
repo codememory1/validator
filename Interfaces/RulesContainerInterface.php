@@ -21,4 +21,15 @@ interface RulesContainerInterface
      */
     public function getRules(): array;
 
+    /**
+     * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
+     * Set the validation namespace that uses the current rule
+     * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
+     *
+     * @param string $namespace
+     *
+     * @return RulesContainerInterface
+     */
+    public function setNamespaceValidation(string $namespace): RulesContainerInterface;
+
 }

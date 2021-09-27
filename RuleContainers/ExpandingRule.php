@@ -28,10 +28,10 @@ class ExpandingRule extends AbstractRule
     {
 
         if (!empty($validatedValue)) {
-            return call_user_func($ruleData->parameters()->get(), $validatedValue);
+            return call_user_func($this->getMethodNamespace($ruleData->parameters()->get()), $validatedValue);
         }
 
-        return false;
+        return true;
 
     }
 
@@ -45,10 +45,10 @@ class ExpandingRule extends AbstractRule
     {
 
         if (empty($validatedValue)) {
-            return call_user_func($ruleData->parameters()->get(), $validatedValue);
+            return call_user_func($this->getMethodNamespace($ruleData->parameters()->get()), $validatedValue);
         }
 
-        return false;
+        return true;
 
     }
 
@@ -61,7 +61,7 @@ class ExpandingRule extends AbstractRule
     public function customRule(RuleDataInterface $ruleData, mixed $validatedValue): bool
     {
 
-        return call_user_func($ruleData->parameters()->get(), $validatedValue);
+        return call_user_func($this->getMethodNamespace($ruleData->parameters()->get()), $validatedValue);
 
     }
 

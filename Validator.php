@@ -9,6 +9,7 @@ use Codememory\Components\Validator\Exceptions\RuleDoesNotExistException;
 use Codememory\Components\Validator\Interfaces\RuleInterface;
 use Codememory\Components\Validator\Interfaces\RulesContainerInterface;
 use Codememory\Components\Validator\Interfaces\ValidatorInterface;
+use Codememory\Components\Validator\RuleContainers\ExpandingRule;
 use Codememory\Components\Validator\RuleContainers\IsRule;
 use Codememory\Components\Validator\RuleContainers\LengthRule;
 use Codememory\Support\Arr;
@@ -41,7 +42,8 @@ class Validator implements ValidatorInterface
      */
     private array $ruleContainers = [
         IsRule::class,
-        LengthRule::class
+        LengthRule::class,
+        ExpandingRule::class
     ];
 
     /**
@@ -130,14 +132,18 @@ class Validator implements ValidatorInterface
     /**
      * @inheritDoc
      */
-    public function make(): ValidatorInterface
+    public function make(?string $namespaceValidation = null): ValidatorInterface
     {
 
-        $this->iterationValidations(function (string $dataKeyForValidation, Validate $validate) {
+        $this->iterationValidations(function (string $dataKeyForValidation, Validate $validate) use ($namespaceValidation) {
             /** @var RuleInterface $rule */
             foreach ($validate->getRules() as $rule) {
                 $ruleData = $rule->data();
                 $container = $this->getContainerByRuleName($ruleData->getRuleName());
+
+                if(null !== $namespaceValidation) {
+                    $container->setNamespaceValidation($namespaceValidation);
+                }
 
                 if (null === $container && $this->utils->checkExistRules()) {
                     throw new RuleDoesNotExistException($ruleData->getRuleName());
