@@ -9,6 +9,7 @@ use Codememory\Components\Validator\Exceptions\RuleDoesNotExistException;
 use Codememory\Components\Validator\Interfaces\RuleInterface;
 use Codememory\Components\Validator\Interfaces\RulesContainerInterface;
 use Codememory\Components\Validator\Interfaces\ValidatorInterface;
+use Codememory\Components\Validator\RuleContainers\EnumRule;
 use Codememory\Components\Validator\RuleContainers\ExpandingRule;
 use Codememory\Components\Validator\RuleContainers\IsRule;
 use Codememory\Components\Validator\RuleContainers\LengthRule;
@@ -43,7 +44,8 @@ class Validator implements ValidatorInterface
     private array $ruleContainers = [
         IsRule::class,
         LengthRule::class,
-        ExpandingRule::class
+        ExpandingRule::class,
+        EnumRule::class
     ];
 
     /**
