@@ -172,7 +172,7 @@ class IsRule extends AbstractRule
     public function emailRule(RuleDataInterface $ruleData, mixed $validatedValue): bool
     {
 
-        return !filter_var($validatedValue, FILTER_VALIDATE_EMAIL);
+        return filter_var($validatedValue, FILTER_VALIDATE_EMAIL);
 
     }
 
